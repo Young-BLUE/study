@@ -26,6 +26,8 @@ public class OrderDetail {
 
     private Integer quantity;
 
+    private LocalDateTime orderAt;
+
     private BigDecimal totalPrice;
 
     private LocalDateTime createdAt;

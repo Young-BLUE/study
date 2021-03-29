@@ -15,6 +15,7 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create(){
+
         OrderDetail orderDetail = new OrderDetail();
 
         orderDetail.setOrderAt(LocalDateTime.now());
@@ -27,5 +28,6 @@ public class OrderDetailRepositoryTest extends StudyApplicationTests {
 
         OrderDetail newOrderDetail = orderDetailRepository.save(orderDetail);
         Assert.assertNotNull(newOrderDetail);
+
     }
 }

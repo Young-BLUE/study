@@ -21,6 +21,35 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
     @Test
     public void create(){
+
+        String account = "Test01";
+        String password = "Test01";
+        String status = "REGISTERED";
+        String email = "Test01@gmail.com";
+        String phoneNumber = "010-1111-2222";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
+
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
+
+        User newUser = userRepository.save(user);
+        Assert.assertNotNull(newUser);
+
+
+
+
+
+
+        /*
         // String sql = insert into user (%s, %, %d ) value (account, email, age); ... 등과 같은 내용을 썼었지만
         // JPA를 통해 간편하게 관리 가능
         User user = new User();  // 직접 생성하여 관리 Single ton pattern 형식
@@ -34,12 +63,20 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
         User newUser = userRepository.save(user);
         System.out.println("newUser : " + newUser);  // User에서 lombok의 @Data를 통해 Object 를 toString 하여 보여줌
+        */
     }
 
     @Test
     @Transactional
     public void read(){
 
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+        Assert.assertNotNull(user);
+
+
+
+
+        /*
         // select * from user where id = ?
         Optional<User> user = userRepository.findByAccount("TestUser03"); // Long으로 선언했기 때문에 직접 타이핑 시 L을 붙여준다, select 하기 떄문에 User user
 
@@ -51,10 +88,20 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
             });
         });
+        */
     }
 
     @Test
     public void update(){
+
+
+
+
+
+
+
+
+       /*
         Optional<User> user = userRepository.findById(2L);
         
         
@@ -66,6 +113,7 @@ public class UserRepositoryTest extends StudyApplicationTests {
 
             userRepository.save(selectUser);
         });
+        */
     }
 
     //@DeleteMapping("/api/user")
@@ -73,6 +121,16 @@ public class UserRepositoryTest extends StudyApplicationTests {
     @Test
     @Transactional  // Springframework 에 있는 해당 내용을 입력해주면 마지막 자료라면 삭제 하더라도 다시 Roll Back 해준다
     public void delete(){
+
+
+
+
+
+
+
+
+
+        /*
         Optional<User> user = userRepository.findById(3L);
 
         Assert.assertTrue(user.isPresent());  // 반드시 ID가 2번인 대상이 있어야 한다는 메소드 (해당 값을 통과해서 delete가 이루어져야함)
@@ -90,8 +148,9 @@ public class UserRepositoryTest extends StudyApplicationTests {
             System.out.println("데이터 존재 : " + deleteuser.get());
         }else{
             System.out.println("***데이터가 삭제되어 존재하지 않습니다***");
-        }*/
+        }
 
         Assert.assertFalse(deleteuser.isPresent()); // Delete 되었기 때문에 반드시 False값
+        */
     }
 }
