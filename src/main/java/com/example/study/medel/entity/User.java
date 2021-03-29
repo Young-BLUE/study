@@ -3,6 +3,7 @@ package com.example.study.medel.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity  // == table
 //@Table(name = "user") 클래스의 이름과 테이블의 이름이 서로 동일하다면 선언하지 않아도 자동맵핑됨
-
+@ToString(exclude = {"orderGroup"})
 public class User {  // DB Table과 이름이 동일하게 (Upper Camel Case)
 
     @Id
@@ -43,6 +44,11 @@ public class User {  // DB Table과 이름이 동일하게 (Upper Camel Case)
 
     private String updatedBy;
 
+
+    // (User) 1 :  N (OrderGroup)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<OrderGroup> orderGroupList;
+    // 서로 상호참조시 Lombok 에서 ToString이 overflow됨
 
 
 
