@@ -26,8 +26,6 @@ public class OrderDetail {
 
     private Integer quantity;
 
-    private LocalDateTime orderAt;
-
     private BigDecimal totalPrice;
 
     private LocalDateTime createdAt;
@@ -37,6 +35,10 @@ public class OrderDetail {
     private LocalDateTime updatedAt;
 
     private String updatedBy;
+
+    private Long itemId;
+
+    private Long orderGroupId;
 
 
 
