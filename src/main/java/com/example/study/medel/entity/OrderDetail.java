@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity  // order_detail 로 자동 연결됨 (Camel Case와 snake_case)
 //@ToString(exclude = {"user","item"})  // user와 item이 서로 상호참조를 하기 때문에 lombok의 ToString이 충돌. 그것을 방지위해 제외
-@ToString(exclude = {"orderGroup"})
+@ToString(exclude = {"orderGroup","item"})
 public class OrderDetail {
 
     @Id
@@ -37,7 +37,11 @@ public class OrderDetail {
 
     private String updatedBy;
 
-    private Long itemId;
+
+
+    // OrderDetail N : 1 Item
+    @ManyToOne
+    private Item item;
 
 
     // OrderDetail N : 1 OrderGroup
