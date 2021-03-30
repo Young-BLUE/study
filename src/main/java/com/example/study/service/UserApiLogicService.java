@@ -84,9 +84,23 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
 
     }
 
-    @Override
+    @Override // path parameter (/api/user/{id})
     public Header delete(Long id) {
-        return null;
+        // 1. id -> repository -> user
+
+        Optional<User> optional = userRepository.findById(id);
+
+        // 2. repository -> delete
+
+        return optional.map(user -> {
+            userRepository.delete(user);
+            // 3. response return
+            return Header.OK();
+        })
+                .orElseGet(()-> Header.ERROR("데이터 없음"));
+
+
+
     }
 
     private Header<UserApiResponse> response(User user){  // 다른 CRUD 부분에서도 사용하기 때문에 중복을 막기위해 Method화
