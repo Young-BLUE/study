@@ -29,7 +29,7 @@ public class Header<T> { // Generic 형식으로 이용
 
 
     // OK (정상)
-    public static <T> Header<T> OK(){
+    public static <T> Header<T> OK() {
         return (Header<T>) Header.builder()  // 형변환
                 .transactionTime(LocalDateTime.now())
                 .resultCode("OK")
@@ -38,7 +38,7 @@ public class Header<T> { // Generic 형식으로 이용
     }
 
     // Data (데이터 통신)
-    public static <T> Header<T> OK(T data){
+    public static <T> Header<T> OK(T data) {
         return (Header<T>) Header.builder()  // 형변환
                 .transactionTime(LocalDateTime.now())
                 .resultCode("OK")
@@ -48,7 +48,7 @@ public class Header<T> { // Generic 형식으로 이용
     }
 
     // Error (비정상)
-    public static <T> Header<T> ERROR(String description){
+    public static <T> Header<T> ERROR(String description) {
         return (Header<T>) Header.builder()  // 형변환
                 .transactionTime(LocalDateTime.now())
                 .resultCode("ERROR")
@@ -56,4 +56,5 @@ public class Header<T> { // Generic 형식으로 이용
                 .build();
 
 
+    }
 }
