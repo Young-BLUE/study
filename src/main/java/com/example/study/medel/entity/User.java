@@ -1,9 +1,12 @@
 package com.example.study.medel.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity  // == table
 //@Table(name = "user") 클래스의 이름과 테이블의 이름이 서로 동일하다면 선언하지 않아도 자동맵핑됨
-@ToString(exclude = {"orderGroup"})
+@ToString(exclude = {"orderGroupList"})
+@EntityListeners(AuditingEntityListener.class) //LoginUserAuditorAware의 AdminServer를 Return 하게됨
+@Builder  // 객체 생성에 사용
+@Accessors(chain = true)  // 객체 업데이트에 사용
 public class User {  // DB Table과 이름이 동일하게 (Upper Camel Case)
 
     @Id
@@ -36,12 +42,16 @@ public class User {  // DB Table과 이름이 동일하게 (Upper Camel Case)
 
     private LocalDateTime unregisteredAt;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
+    @CreatedBy //LoginUserAuditorAware의 AdminServer를 Return 하게됨
     private String createdBy;
 
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @LastModifiedBy //LoginUserAuditorAware의 AdminServer를 Return 하게됨
     private String updatedBy;
 
 

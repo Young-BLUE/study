@@ -1,6 +1,7 @@
 package com.example.study.controller;
 
 import com.example.study.medel.SearchParam;
+import com.example.study.medel.network.Header;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,6 +37,12 @@ public class GetController {
         //{ "account" : "", "email" : "", "page" : 0}  --> json 형태
         return searchParam;
         // 객체를 리턴하게되면 자체에 내장되어있는 Json Library를 통해 객체로 반환됨
+    }
+
+    @GetMapping("/header")
+    public Header getHeader(){  // Header 라는 object를 return 하여 json 형태로 나오게 될 것
+        // {"resultCode" : "OK" , "description" : "OK"}
+        return Header.builder().resultCode("OK").description("OK").build();
     }
 
 }

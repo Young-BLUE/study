@@ -22,11 +22,11 @@ public class UserRepositoryTest extends StudyApplicationTests {
     @Test
     public void create(){
 
-        String account = "Test01";
-        String password = "Test01";
+        String account = "Test03";
+        String password = "Test03";
         String status = "REGISTERED";
         String email = "Test01@gmail.com";
-        String phoneNumber = "010-1111-2222";
+        String phoneNumber = "010-1111-3333";
         LocalDateTime registeredAt = LocalDateTime.now();
         LocalDateTime createdAt = LocalDateTime.now();
         String createdBy = "AdminServer";
@@ -38,8 +38,17 @@ public class UserRepositoryTest extends StudyApplicationTests {
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+        //user.setCreatedAt(createdAt);
+        //user.setCreatedBy(createdBy);
+        
+        
+        // Builder pattern을 통해 따로 변수별 메소드를 새로 만들지 않고 인스턴스 생성
+        User u = User.builder()
+                .account(account)
+                .password(password)
+                .status(status)
+                .email(email)
+                .build();
 
         User newUser = userRepository.save(user);
         Assert.assertNotNull(newUser);
