@@ -1,0 +1,79 @@
+package com.example.study.service;
+
+import com.example.study.ifs.CrudInterface;
+import com.example.study.medel.entity.Item;
+import com.example.study.medel.network.Header;
+import com.example.study.medel.network.request.ItemApiRequest;
+import com.example.study.medel.network.response.ItemApiResponse;
+import com.example.study.repository.ItemRepository;
+import com.example.study.repository.PartnerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.time.LocalDateTime;
+
+@Service
+public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemApiResponse> {
+
+    @Autowired
+    private PartnerRepository partnerRepository; // 객체로 하단 내용에 삽입
+
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Override
+    public Header<ItemApiResponse> create(@RequestBody Header<ItemApiRequest> request) {
+
+        ItemApiRequest body = request.getData();
+        // Code Refactoring 할 때에 Not null Check 부분 넣을 예정
+
+        Item item = Item.builder()
+                .status(body.getStatus())
+                .name(body.getName())
+                .title(body.getTitle())
+                .content(body.getContent())
+                .price(body.getPrice())
+                .brandName(body.getBrandName())
+                .registeredAt(LocalDateTime.now())
+                .partner(partnerRepository.getOne(body.getPartnerId()))
+                .build();
+
+        Item newItem = itemRepository.save(item);
+        return response(newItem);
+    }
+
+    @Override
+    public Header<ItemApiResponse> read(Long id) {
+        return null;
+    }
+
+    @Override
+    public Header<ItemApiResponse> update(@RequestBody Header<ItemApiRequest> request) {
+        return null;
+    }
+
+    @Override
+    public Header delete(Long id) {
+        return null;
+    }
+
+
+    private Header<ItemApiResponse> response(Item item){
+        ItemApiResponse body = ItemApiResponse.builder()
+                .id(item.getId())
+                .status(item.getStatus())
+                .name(item.getName())
+                .title(item.getTitle())
+                .content(item.getContent())
+                .price(item.getPrice())
+                .brandName(item.getBrandName())
+                .registeredAt(item.getRegisteredAt())
+                .unregisteredAt(item.getUnregisteredAt())
+                .partnerId(item.getPartner().getId())
+                .build();
+
+        return Header.OK(body);
+    }
+
+}
