@@ -80,7 +80,7 @@ public class ItemApiLogicService implements CrudInterface<ItemApiRequest, ItemAp
        return itemRepository.findById(id)
                 .map(item -> {
                     itemRepository.delete(item);
-                    return Header.OK();  // map은 return 값이 있어야하지만 delete는 void 이기 때문에 OK라는 return을 작성
+                    return Header.OK();  // map은 return 값이 있어야하지만 delete는 void 이기 때문에 OK return을 작성
                 })
                 .orElseGet(() -> Header.ERROR("데이터 없음"));
     }
