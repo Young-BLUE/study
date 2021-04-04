@@ -11,6 +11,8 @@ public interface UserRepository extends JpaRepository<User,Long> { // GenericVal
 
     User findFirstByPhoneNumberOrderByIdDesc(String phoneNumber);
 
+    User findFirstByEmail(String email);
+
 
 
 

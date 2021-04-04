@@ -38,6 +38,7 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
                 .registeredAt(LocalDateTime.now())
                 .build();
 
+        duplicateCheck(user);
         User newUser = userRepository.save(user);
 
         // 3. 생성된 데이터 -> UserApiResponse return
@@ -119,5 +120,13 @@ public class UserApiLogicService implements CrudInterface<UserApiRequest, UserAp
 
         // Header + data return
         return Header.OK(userApiResponse);
+    }
+
+    private Header<UserApiResponse> duplicateCheck(User user){
+
+        User checkEmail = userRepository.findFirstByEmail(user.getEmail());
+
+        if(checkEmail != null) throw new IllegalStateException("이미 존재하는 이메일주소 입니다.");
+        return Header.ERROR("이미 존재하는 이메일주소 입니다.");
     }
 }
